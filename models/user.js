@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = function(models) {
         models.User.hasMany(models.Task);
     };
+    function followers() {
+        return models.user_relation.hasMany(models.Task);
+    }
 
     return User;
 };
