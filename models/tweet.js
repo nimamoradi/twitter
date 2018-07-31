@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 
 
     Tweet.associate = function (models) {
-        models.User.hasMany(models.Task);
+        models.Tweet.hasOne(models.User, {
+            foreignKey: 'twitter_id', targetKey: 'user_tweet_id', as: "user"
+        });
     };
 
     return Tweet;
