@@ -4,7 +4,12 @@ const models = require('../models/index');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 
-    models.User.findAll({}).then(userResponse => {
+    models.User.findAll({
+        include: [
+            {model: models.user_relation, as: 'followers'},
+            {model: models.user_relation, as: 'followings'},
+        ]
+    }).then(userResponse => {
         res.json((userResponse));
     })
         .catch(error => {

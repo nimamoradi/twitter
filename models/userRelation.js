@@ -10,9 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
     userRelation.associate = function (models) {
-        models.user_relation.belongsTo(models.User, {
-            foreignKey: 'twitter_id', targetKey: 'user_destination_id',
-        });
+
     };
 
     return userRelation;
