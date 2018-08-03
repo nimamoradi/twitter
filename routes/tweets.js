@@ -1,17 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const models = require('../models/index');
-/* GET users listing. */
+/* GET tweets listing. */
 router.get('/', function (req, res, next) {
 
-    models.User.findAll({
+    models.Tweet.findAll({
         include: [
-            {model: models.user_relation, as: 'followers'},
-            {model: models.user_relation, as: 'followings'},
+            {model: models.User, as: 'user'},
         ]
     }).then(userResponse => {
         res.json((userResponse));
-        // res.send(userResponse[0].getHastags());
     })
         .catch(error => {
             res.status(400).send(error)
