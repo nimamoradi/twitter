@@ -20,12 +20,6 @@ module.exports = function (use) {
     }).spread(function (result) {
         var author = result[0], // the instance of the author
             created = result[1]; // boolean stating if it was created or not
-
-        if (created) {
-            console.log('Author already exists');
-        } else {
-            console.log('Created author...');
-        }
     });
 
     return newUser;
