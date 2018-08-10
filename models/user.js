@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var User = sequelize.define('User', {
+    const User = sequelize.define('User', {
             username: DataTypes.CHAR(15),
             remote_user_id: DataTypes.CHAR(64),
             bio: DataTypes.CHAR(160),
@@ -23,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     ;
 
     User.associate = function (models) {
-        models.User.hasMany(models.user_relation, {
+        User.hasMany(models.user_relation, {
             foreignKey: 'user_destination_id', targetKey: 'remote_user_id', as: "followers"
         });
 
-        models.User.hasMany(models.user_relation, {//people whom i f
+        User.hasMany(models.user_relation, {//people whom i f
             foreignKey: 'user_source_id', targetKey: 'remote_user_id', as: "followings"
         });
     };

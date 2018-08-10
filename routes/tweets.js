@@ -4,7 +4,7 @@ const models = require('../models/index');
 
 /* GET tweets listing. */
 router.get('/', function (req, res, next) {
-    models.Tweets.findAll({
+    models.Tweet.findAll({
         include: [
             {model: models.User, as: 'user'},
         ]

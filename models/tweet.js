@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var Tweet = sequelize.define('Tweets', {
+    const Tweets = sequelize.define('Tweets', {
         twitter: DataTypes.CHAR(64),
         text: DataTypes.TEXT(280),
         user_mentions: DataTypes.TEXT(280),
@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     });
 
 
-    Tweet.associate = function (models) {
-        models.Tweets.hasOne(models.User, {
+    Tweets.associate = function (models) {
+        Tweets.hasOne(models.User, {
             foreignKey: 'remote_user_id', targetKey: 'remote_user_tweeted', as: "user"
         });
     };
 
-    return Tweet;
+    return Tweets;
 };

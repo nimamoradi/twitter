@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var TweetsRouter = require('./routes/tweets');
+const getFollowers = require('./routes/getAllfollwers');
+const getFollowersOfUser = require('./routes/getAllfollwersOfUser');
 var user = require('./routes/getUser');
 
 
@@ -26,6 +28,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tweets', TweetsRouter);
 app.use('/getUser', user);
+app.use('/getFollowers',getFollowers);
+app.use('/getFollowersUser',getFollowersOfUser);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
