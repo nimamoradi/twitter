@@ -23,6 +23,7 @@ module.exports = function (use) {
             //     created = result[1]; // boolean stating if it was created or not
         });
     }
+    console.log('user ' + use.sourceID +" is done");
 
 };
 

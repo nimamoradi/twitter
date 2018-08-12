@@ -3,8 +3,9 @@ const router = express.Router();
 const models = require('../models/index');
 const keys = require('../data/keys');
 const Twitter = require('twitter');
-const getFollowers = require('../controler/getFollowersList');
-const getFriends = require('../controler/getFriends');
+const getFollowers = require('../controler/smartFindFollowers');
+const getFriends = require('../controler/smartFind');
+
 /* GET users listing. */
 router.get('/:id', function (req, res, next) {
     let client = new Twitter({
@@ -15,39 +16,24 @@ router.get('/:id', function (req, res, next) {
     });
     let index1 = 1;
     let index2 = 1;
-    let interval = setInterval(function () {
-        models.User.findOne({where: {'id': index1}}).then(userResponse => {
-            if (index1 === 89) clearInterval(interval);
-            else index1++;
-            client.get('followers/ids.json', {screen_name: userResponse.username, stringify_ids: true})
-                .then((tweet) => {
-                    // res.json(tweet);
-                    getFollowers({sourceID: userResponse.remote_user_id, ids: tweet.ids});
-                })
-                .catch(function (error) {
-                    res.send(error);
 
-                });
 
-        });
-    }, 61000);
+    let inte = setInterval(function () {
+        if (index1 === 2)
+            clearInterval(inte);
+        getFollowers(index1);
+        index1++;
+    }, 4000);
+    //    let inte2 = setInterval(function () {
+    //     //     if (index2 === 89) {
+    //     //         clearInterval(inte2);
+    //     //
+    //     //         console.log("dam exit ")
+    //     //     }
+    //     //     getFriends(index2);
+    //     //     index2++;
+    //     // }, 6000)
 
-    let interval2 = setInterval(function () {
-        models.User.findOne({where: {'id': index2}}).then(userResponse => {
-            if (index2 === 89) clearInterval(interval2);
-            else index2++;
-            client.get('friends/ids.json', {screen_name: userResponse.username, stringify_ids: true})
-                .then((tweet) => {
-                    // res.json(tweet);
-                    getFriends({sourceID: userResponse.remote_user_id, ids: tweet.ids});
-                })
-                .catch(function (error) {
-                    res.send(error);
-
-                });
-
-        });
-    }, 65000);
 
 });
 
