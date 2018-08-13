@@ -19,20 +19,20 @@ router.get('/:id', function (req, res, next) {
 
 
     let inte = setInterval(function () {
-        if (index1 === 2)
+        if (index1 === 88)
             clearInterval(inte);
         getFollowers(index1);
         index1++;
-    }, 4000);
+    }, 10000);
     //    let inte2 = setInterval(function () {
-    //     //     if (index2 === 89) {
-    //     //         clearInterval(inte2);
-    //     //
-    //     //         console.log("dam exit ")
-    //     //     }
-    //     //     getFriends(index2);
-    //     //     index2++;
-    //     // }, 6000)
+    //         if (index2 === 88) {
+    //             clearInterval(inte2);
+    //
+    //             console.log("dam exit ")
+    //         }
+    //         getFriends(index2);
+    //         index2++;
+    //     }, 10000)
 
 
 });

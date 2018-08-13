@@ -22,11 +22,23 @@ module.exports = function (id) {
             where: {'user_source_id': result.remote_user_id,},
         }).then(function (ok) {
             console.log("user is " + result.toString() + " " + ok.length);
-            if (ok !== null && ok.length >= result.friends_count) {
+            if (ok !== null && ok.length >= result.friends_count || (4999 < result.followers_count && ok.length >= 4999)) {
                 console.log("user is ok " + id)
             }
             else {
-                fix(client, result)
+                if (result.friends_count - ok.length > 5) {
+                    console.log("find user " + id + " size is " + result.friends_count + " have " + ok.length)
+                    client.get('friends/ids.json', {screen_name: result.username, stringify_ids: true,})
+                        .then((tweet) => {
+                            // res.json(tweet);
+                            getFriends({sourceID: result.remote_user_id, ids: tweet.ids});
+                            return tweet.next_cursor_str;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+
+                }else   console.log("user is ok " + id+ " for 5")
             }
         });
     });
