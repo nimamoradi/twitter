@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
         remote_user_tweeted: DataTypes.CHAR(64),//who tweeted
         orginal_tweet_id: DataTypes.CHAR(64),
         orginal_tweet_user_id: DataTypes.CHAR(64),
+        in_reply_to_user_id_str: DataTypes.CHAR(64),
+        is_reply:DataTypes.BOOLEAN
     });
 
 

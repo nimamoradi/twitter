@@ -9,7 +9,8 @@ var usersRouter = require('./routes/users');
 var TweetsRouter = require('./routes/tweets');
 const getFollowers = require('./routes/getAllfollwers');
 const getFollowersOfUser = require('./routes/getAllfollwersOfUser');
-var user = require('./routes/getUser');
+const user = require('./routes/getUser');
+const tweetSave = require('./routes/getTweets');
 
 
 var app = express();
@@ -30,6 +31,7 @@ app.use('/tweets', TweetsRouter);
 app.use('/getUser', user);
 app.use('/getFollowers',getFollowers);
 app.use('/getFollowersUser',getFollowersOfUser);
+app.use('/getTweet', tweetSave);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
