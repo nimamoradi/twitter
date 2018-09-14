@@ -20,6 +20,7 @@ module.exports = function (tweet) {
         newTweet.orginal_tweet_user_id =
             tweet.retweeted_status.user.id_str;
     }
+    newTweet.createdAt=new Date(tweet.created_at);
     // newTweet.hastags = use.verified;
 
     newTweet.like_count = tweet.favorite_count;

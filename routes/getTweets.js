@@ -1,35 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const saveTweet = require('../saveData/saveTweet');
-const keys = require('../data/keys');
-const Twitter = require('twitter');
+const models = require('../models/index');
+
+const allUserTweet = require('../controler/allUsersTweet');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 
+    models.User.findAll({}).then(
+        userResponse => {
+            for (let i = 0; i < userResponse.length; i++) {
 
-    let client = new Twitter({
-        consumer_key: keys.TWITTER_CONSUMER_KEY,
-        consumer_secret: keys.TWITTER_CONSUMER_SECRET,
-        access_token_key: keys.TWITTER_ACCESS_TOKEN,
-        access_token_secret: keys.TWITTER_ACCESS_TOKEN_SECRET
-    });
-
-
-    client.get('statuses/user_timeline.json', {screen_name: 'Masoud_erfaniii',count:3200})
-        .then(function (tweets) {
-            console.log(tweets);
-            for (let i = 0; i < tweets.length; i++) {
-                saveTweet(tweets[i])
+                allUserTweet(req, res, userResponse[i])
             }
-            console.log("tweets.length "+tweets.length);
-            res.send(tweets);
         })
-        .catch(function (error) {
-            res.send(error);
+        .catch(error => {
+            res.status(400).send(error)
         });
-
-
 });
 
 

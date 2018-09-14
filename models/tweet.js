@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         is_reply:DataTypes.BOOLEAN
     });
 
-
-    Tweets.associate = function (models) {
-        Tweets.hasOne(models.User, {
-            foreignKey: 'remote_user_id', targetKey: 'remote_user_tweeted', as: "user"
-        });
-    };
+    //
+    // Tweets.associate = function (models) {
+    //     Tweets.hasOne(models.User, {
+    //         foreignKey: 'remote_user_id', targetKey: 'remote_user_tweeted', as: "user"
+    //     });
+    // };
 
     return Tweets;
 };

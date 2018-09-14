@@ -8,10 +8,11 @@ module.exports = function (use) {
     newUser.bio = use.description;
     newUser.role = 0;
     newUser.verified = use.verified;
+    newUser.tweet_count = use.statuses_count;
     newUser.followers_count = use.followers_count;
     newUser.friends_count = use.friends_count;
     let hastags = "";
-
+    newUser.createdAt = new Date(use.created_at);
     newUser.bio_hastag = hastags;
     models.User.findOrCreate({
         where:
