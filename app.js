@@ -11,6 +11,7 @@ const getFollowers = require('./routes/getAllfollwers');
 const getFollowersOfUser = require('./routes/getAllfollwersOfUser');
 const user = require('./routes/getUser');
 const tweetSave = require('./routes/getTweets');
+const makeData = require('./routes/makeDataForProcess');
 
 
 var app = express();
@@ -32,6 +33,7 @@ app.use('/getUser', user);
 app.use('/getFollowers',getFollowers);
 app.use('/getFollowersUser',getFollowersOfUser);
 app.use('/getTweet', tweetSave);
+app.use('/makeData', makeData);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
