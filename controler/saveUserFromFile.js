@@ -6,11 +6,11 @@ const saveUser = require('../saveData/saveUser');
 
 
 module.exports = function () {
-    var fs = require('fs'),
+    let fs = require('fs'),
         readline = require('readline');
 
-    var rd = readline.createInterface({
-        input: fs.createReadStream('./data/autism.txt'),
+    let rd = readline.createInterface({
+        input: fs.createReadStream('./data/normal.txt'),
         output: process.stdout,
         console: false
     });

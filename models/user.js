@@ -31,12 +31,14 @@ module.exports = (sequelize, DataTypes) => {
 
     function saveToFile(username, tweet) {
         const fs = require('fs');
-
-        let writeStream = fs.createWriteStream("D:\\data\\users\\" + username + "\\" +
-            (new Date(tweet.createdAt)).getTime()/1000 + ".txt");
-        writeStream.write(tweet.text);
-        writeStream.end();
-
+        //
+        // let writeStream = fs.createWriteStream("D:\\data\\user\\" + username + ".txt");
+        // writeStream.write(tweet.text);
+        // writeStream.end();
+        fs.appendFile("D:\\data\\user\\" + username + ".txt", tweet.text + "\n", function (err) {
+            if (err) throw err;
+            console.log('Saved!');
+        });
     }
 
     return User;
