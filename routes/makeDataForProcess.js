@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     models.User.findAll().then(function (result) {
         let i = 0;
         let interval = setInterval(function () {
-                if (i === 85)
+                if (i === 72)
                     clearInterval(interval);
                 result[i].getTweets();
                 i++;

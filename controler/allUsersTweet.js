@@ -26,10 +26,14 @@ function allUserTweet(req, res, user) {
             if (parseInt(user.tweet_count) > 200)
                 loadRecursive(user.username, tweets[tweets.length - 1].id_str,
                     tweets.length, parseInt(user.tweet_count));
-            res.send(tweets);
+            res.send(tweets.map(function (item) {
+                return item.text
+            }));
+            console.log(tweets);
         })
         .catch(function (error) {
             res.send(error);
+            console.log(error);
         });
 
 
@@ -37,7 +41,7 @@ function allUserTweet(req, res, user) {
 
 function loadRecursive(screen_name, max_id, founded, total) {
     console.log("tweets.founded " + founded + " " + max_id + " " + total);
-    if (founded < total && (founded < 5000))
+    if (founded < total && (founded < 3200))
         client.get('statuses/user_timeline.json', {
             screen_name: screen_name,
             count: 200,

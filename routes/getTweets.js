@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
     models.User.findAll({}).then(
         userResponse => {
-            for (let i = 0; i < userResponse.length; i++) {
+            for (let i = 51; i < userResponse.length; i++) {
 
                 allUserTweet(req, res, userResponse[i])
             }
