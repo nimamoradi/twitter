@@ -5,7 +5,7 @@ const saveUser=require("../controler/saveUserFromFile")
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 
-    saveUser();
+    saveUser(req, res, next);
 
 });
 

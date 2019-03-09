@@ -3,7 +3,7 @@ const router = express.Router();
 const models = require('../models/index');
 
 router.get('/', function (req, res, next) {
-    te(req, res, 5770)
+    te(req, res, 1)
     res.send("hello");
 });
 
@@ -11,7 +11,7 @@ function te(req, res, count) {
     models.Tweets.findOne({where: {id: count}}).then(function (record) {
 
             // let record = result[0];
-            if (record != null && record.text !== "") {
+            if (record.text != null && record.text !== "") {
                 let text = record.text;
                 text = text.replace(new RegExp('\\b' + "https://t.co/" + '\\w+'), '');
 

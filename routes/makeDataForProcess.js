@@ -8,12 +8,12 @@ router.get('/', function (req, res, next) {
     models.User.findAll().then(function (result) {
         let i = 0;
         let interval = setInterval(function () {
-                if (i === 72)
+                if (i === 280)
                     clearInterval(interval);
                 result[i].getTweets();
                 i++;
 
-            }, 1000
+            }, 1400
         );
         let temp = result[0].getTweets();
         res.json(temp);

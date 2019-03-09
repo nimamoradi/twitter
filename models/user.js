@@ -1,5 +1,6 @@
 'use strict';
 
+let stemmer = require('stemmer')
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -21,9 +22,25 @@ module.exports = (sequelize, DataTypes) => {
                     return models.Tweets.findAll({
                         where: {'remote_user_tweeted': this.remote_user_id}
                     }).then((tweet) => {
+                        let max = new Date(-8640000000000000);
+
+                        for (let i = 0; i < tweet.length; i++) {
+                            let temp = new Date(tweet[i].createdAt);
+                            max = (temp > max ? temp : max);
+                        }
+                        console.log("max " + max);
+                        let period = max;
+                        period.setMonth(period.getMonth() - 6);
+                        console.log("period " + period);
+                        // period = period.get();
+                        console.log("tweet Ss" + tweet);
+                        tweet = tweet.filter(function (item) {
+                            return item.createdAt > period
+                        });
                         for (let i = 0; i < tweet.length; i++) {
                             saveToFile(this.username, tweet[i])
                         }
+                        console.log("tweet Ss" + tweet)
                     });
                 }
             }
@@ -31,14 +48,14 @@ module.exports = (sequelize, DataTypes) => {
 
     function saveToFile(username, tweet) {
         const fs = require('fs');
-        //
-        // let writeStream = fs.createWriteStream("D:\\data\\user\\" + username + ".txt");
-        // writeStream.write(tweet.text);
-        // writeStream.end();
-        fs.appendFile("D:\\data\\user\\" + username + ".txt", tweet.text + "\n", function (err) {
-            if (err) throw err;
-            console.log('Saved!');
-        });
+        let text = tweet.text;
+        text = text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+        text = stemmer(text);
+        if (text !== null && text !== '')
+            fs.appendFile("D:\\data\\user_6_normal\\" + username + ".txt", text + "\n", function (err) {
+                if (err) throw err;
+                console.log('Saved!');
+            });
     }
 
     return User;

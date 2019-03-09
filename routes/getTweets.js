@@ -1,15 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models/index');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 
 const allUserTweet = require('../controler/allUsersTweet');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 
-    models.User.findAll({}).then(
+    models.User.findAll({
+        where: {
+            id: {
+                $gt: 140,
+                $lt: 160
+            }
+        }
+    }).then(
         userResponse => {
-            for (let i = 51; i < userResponse.length; i++) {
+            for (let i = 0; i < userResponse.length; i++) {
 
                 allUserTweet(req, res, userResponse[i])
             }

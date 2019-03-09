@@ -26,14 +26,13 @@ function allUserTweet(req, res, user) {
             if (parseInt(user.tweet_count) > 200)
                 loadRecursive(user.username, tweets[tweets.length - 1].id_str,
                     tweets.length, parseInt(user.tweet_count));
-            res.send(tweets.map(function (item) {
-                return item.text
-            }));
+            res.send(tweets[1].text);
             console.log(tweets);
         })
         .catch(function (error) {
-            res.send(error);
+            // res.send(error);
             console.log(error);
+            syscall.exit(-1);
         });
 
 
