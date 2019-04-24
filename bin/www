@@ -19,14 +19,15 @@ app.set('port', port);
  * Create HTTP server.
  */
 let server = http.createServer(app);
-let globalTunnel = require('global-tunnel-ng');
-
-globalTunnel.initialize({
-    host: '127.0.0.1',
-    port: 8580,
-    // proxyAuth: ':password', // optional authentication
-    sockets: 50 // optional pool size for each http and https
-});
+//add proxy if you have too
+// let globalTunnel = require('global-tunnel-ng');
+//
+// globalTunnel.initialize({
+//     host: '127.0.0.1',
+//     port: 8580,
+//     // proxyAuth: ':password', // optional authentication
+//     sockets: 50 // optional pool size for each http and https
+// });
 models.sequelize.sync().then(function() {
     /**
      * Listen on provided port, on all network interfaces.

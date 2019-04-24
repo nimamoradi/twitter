@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
         readline = require('readline');
 
     let rd = readline.createInterface({
-        input: fs.createReadStream('./data/asb.csv'),
+        input: fs.createReadStream('./data/autism.txt'),
         output: process.stdout,
         console: false
     });
@@ -44,7 +44,7 @@ function request(line, client, res) {
             (saveUser(tweet));
         })
         .catch(function (error) {
-            res.send(error);
+            console.log(error);
         });
 
 }

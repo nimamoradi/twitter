@@ -13,8 +13,8 @@ router.get('/', function (req, res, next) {
     models.User.findAll({
         where: {
             id: {
-                $gt: 140,
-                $lt: 160
+                $gt: 0,
+                $lt: 120
             }
         }
     }).then(
