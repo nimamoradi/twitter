@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
                     console.log('tweet ' + JSON.stringify(this));
                     const models = require('../models/index');
                     return models.Tweets.findAll({
-                        where: {'remote_user_tweeted': this.remote_user_id}
+                        where: {
+                            'remote_user_tweeted': this.remote_user_id,
+                            'is_retweet': 0
+                        }
                     }).then((tweet) => {
                         // let max = new Date(-8640000000000000);
                         //
@@ -38,9 +41,16 @@ module.exports = (sequelize, DataTypes) => {
                         tweet = tweet.filter(item =>
                             item_filter(item.text.toLowerCase())
                         );
+                        let tweet_str = '';
                         for (let i = 0; i < tweet.length; i++) {
-                            saveToFile(this.username, tweet[i])
+                            tweet_str += saveToFile(this.username, tweet[i])
                         }
+                        const fs = require('fs');
+                        if (tweet_str !== null && tweet_str !== '')
+                            fs.appendFile("D:\\data\\user_normal\\" + this.username + ".txt", tweet_str + "\n", function (err) {
+                                if (err) throw err;
+                                // console.log('Saved!');
+                            });
                         console.log("tweet Ss" + this.username);
 
                     });
@@ -62,15 +72,12 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     function saveToFile(username, tweet) {
-        const fs = require('fs');
+
         let text = tweet.text;
         text = text.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
         text = stemmer(text);
-        if (text !== null && text !== '')
-            fs.appendFile("D:\\data\\user\\" + username + "_auti.txt", text + "\n", function (err) {
-                if (err) throw err;
-                // console.log('Saved!');
-            });
+        return text + '\n';
+
     }
 
     return User;

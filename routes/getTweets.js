@@ -13,14 +13,13 @@ router.get('/', function (req, res, next) {
     models.User.findAll({
         where: {
             id: {
-                $gt: 0,
-                $lt: 120
+                $gt: 1100,
+                $lt: 1200
             }
         }
     }).then(
         userResponse => {
             for (let i = 0; i < userResponse.length; i++) {
-
                 allUserTweet(req, res, userResponse[i])
             }
         })
